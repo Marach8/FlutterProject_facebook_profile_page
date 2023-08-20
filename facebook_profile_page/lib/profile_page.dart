@@ -14,9 +14,9 @@ class P extends State<Profile> {
   bool hasFocus1 = true;
   bool hasFocus2 = false;
   
-  final List<String> urls = ['assets/FB_IMG_1691828515571.png', 'assets/FB_IMG_1691828515571.png',
-                              'assets/FB_IMG_1691828515571.png', 'assets/FB_IMG_1691828515571.png',
-                              'assets/FB_IMG_1691828515571.png', 'assets/FB_IMG_1691828515571.png'];
+  final List<String> urls = ['assets/charlotte.png', 'assets/3jn2.png',
+                              'assets/3Jn1.png', 'assets/gerald.png',
+                              'assets/katie.png', 'assets/mo.png'];
   final List<String> names = ['Ajah Emmanuel', 'Chukwu Desmond', 'Daniel Vincent', 'Monic Ruth',
                               'Ucheckwu Anayo', 'Mark Donaldson'];  
   
@@ -35,9 +35,22 @@ class P extends State<Profile> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(url, fit: BoxFit.cover,),
+            child: Image.asset(url, fit: BoxFit.cover, height: 110),
+
           ),
-          Text(name)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+            child: Text(
+              name,
+              style: GoogleFonts.getFont(
+                'Inter',
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.w500
+              ),
+              overflow: TextOverflow.ellipsis
+            ),
+          )
         ]
       ),
     );
@@ -558,7 +571,7 @@ class P extends State<Profile> {
                           ),
                         ),
                         Container(
-                          width: w,
+                          width: w, height: h*0.09,
                           padding: const EdgeInsets.fromLTRB(15, 18, 15, 18),                        
                           child: ElevatedButton(
                             onPressed: (){},
@@ -566,15 +579,12 @@ class P extends State<Profile> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)
                               ),
-                              backgroundColor: const Color.fromARGB(255, 207, 223, 237),
-                              foregroundColor: const Color.fromARGB(255, 44, 77, 241)
+                              backgroundColor: Color.fromARGB(179, 253, 253, 253),                               
                             ),
                             child: Text(
                               'See all friends',
                               style: GoogleFonts.getFont(
-                                'Roboto',
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500
+                                'Roboto', fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black
                               )
                             )
                           ),
