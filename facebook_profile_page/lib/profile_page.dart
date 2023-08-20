@@ -12,12 +12,36 @@ class Profile extends StatefulWidget{
 
 class P extends State<Profile> {
   bool hasFocus1 = true;
-  bool hasFocus2 = false;    
-
+  bool hasFocus2 = false;
+  
+  final List<String> urls = ['assets/FB_IMG_1691828515571.png', 'assets/FB_IMG_1691828515571.png',
+                              'assets/FB_IMG_1691828515571.png', 'assets/FB_IMG_1691828515571.png',
+                              'assets/FB_IMG_1691828515571.png', 'assets/FB_IMG_1691828515571.png'];
+  final List<String> names = ['Ajah Emmanuel', 'Chukwu Desmond', 'Daniel Vincent', 'Monic Ruth',
+                              'Ucheckwu Anayo', 'Mark Donaldson'];  
+  
   @override 
   Widget build (BuildContext context) {
     var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
+    var w = MediaQuery.of(context).size.width; 
+
+    Widget pictureName (String url, String name) {
+    return Card(
+      elevation: 0, color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20), 
+      ),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(url, fit: BoxFit.cover,),
+          ),
+          Text(name)
+        ]
+      ),
+    );
+  }   
 
     return Consumer<Users>(
       builder: ((context, users, child)
@@ -27,52 +51,53 @@ class P extends State<Profile> {
           backgroundColor: Colors.white,
           flexibleSpace: Column(
             children: [
-              SizedBox(height: h*0.03),
+              SizedBox(height: h*0.05),
               Row(              
                 children: [ 
                   const Expanded(
-                    flex: 2,          
+                    flex: 1,          
                     child: SizedBox()
                   ),
-                  Expanded(
-                    flex: 6,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          onPressed: (){
-                            ScaffoldMessenger.of(context).showMaterialBanner(
-                              MaterialBanner(
-                                padding: const EdgeInsets.all(20),
-                                content: const Text('Hello'),
-                                leading: const Icon(Icons.notifications),
-                                actions: [
-                                  TextButton(
-                                    onPressed: (){
-                                      ScaffoldMessenger.of(context).hideCurrentMaterialBanner();                                      
-                                    },
-                                    child: Text('Dismiss')
-                                  )
-                                ]
+                  Expanded(                    
+                    flex: 5,
+                    child: GestureDetector(
+                      onTap: (){
+                        ScaffoldMessenger.of(context).showMaterialBanner(
+                          MaterialBanner(
+                            padding: const EdgeInsets.all(20),
+                            content: const Text('Hello'),
+                            leading: const Icon(Icons.notifications),
+                            actions: [
+                              TextButton(
+                                onPressed: (){ScaffoldMessenger.of(context).hideCurrentMaterialBanner();},
+                                child: const Text('Dismiss')
                               )
-                            );
-                          },
-                          child: Text(
-                            users.storeUsers[users.loggedInUser]![0],
-                            style: GoogleFonts.getFont(
-                              'Inter',
-                              color: Colors.black,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600
-                            )
-                          ),
+                            ]
+                          )
+                        );
+                      },
+                      child: Container(color: Colors.blue,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [                          
+                            Text(
+                              users.storeUsers[users.loggedInUser]![0],
+                              style: GoogleFonts.getFont(
+                                'Inter',
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600
+                              ),
+                              overflow: TextOverflow.ellipsis,                              
+                            ),
+                            const Icon(Icons.arrow_drop_down_rounded),
+                          ]
                         ),
-                        const Icon(Icons.arrow_drop_down),
-                      ]
+                      ),
                     )
-                  ),                
+                  ),
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Align(
                       alignment: Alignment.topRight,
                       child: IconButton(
@@ -95,7 +120,7 @@ class P extends State<Profile> {
         body: SingleChildScrollView(
           child: Center(
             child: Container(
-              color: Colors.grey.shade400,
+              color: Colors.grey.shade300,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -103,20 +128,21 @@ class P extends State<Profile> {
                   //Division1
     
                   Container(
-                    color: Colors.grey.shade400,
-                    height: h*0.5,
+                    color: const Color.fromARGB(255, 209, 211, 212),
+                    height: h*0.48,
                     child: Stack(
                       children: [
                         Positioned(
                           bottom: h*0.017,
                           child: Container(
                             color: Colors.white,
-                            height: h*0.21, width:w,
+                            height: h*0.2, width:w,
                           )
                         ),
                         Positioned(
-                          bottom: h*0.036,
+                          bottom: h*0.038,
                           child: Container(
+                            height: 35,
                             width:w,
                             padding: const EdgeInsets.only(left:15, right:15),
                             child: Row(                            
@@ -128,13 +154,9 @@ class P extends State<Profile> {
                                     icon: const Icon(Icons.add),
                                     label: Text(
                                       'Add to story',
-                                      style: GoogleFonts.getFont(
-                                        'Roboto',
-                                        fontSize:10,
-                                        fontWeight: FontWeight.w700,                                      
-                                      )
+                                      style: GoogleFonts.getFont('Roboto', fontSize:13,fontWeight: FontWeight.w600,)
                                     ),
-                                    style: ElevatedButton.styleFrom(
+                                    style: ElevatedButton.styleFrom(                                      
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(7)),
                                       backgroundColor: const Color.fromARGB(255, 44, 77, 241),
@@ -148,7 +170,10 @@ class P extends State<Profile> {
                                   child: ElevatedButton.icon(
                                     onPressed: (){},
                                     icon: const Icon(Icons.edit),
-                                    label: const Text('Edit profile'),
+                                    label: Text(
+                                      'Edit profile', 
+                                      style: GoogleFonts.getFont('Roboto', fontSize:13,fontWeight: FontWeight.w600,)
+                                    ),
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(7)),                                   
@@ -160,7 +185,7 @@ class P extends State<Profile> {
                                 SizedBox(width: w*0.025),
                                 Expanded(                                
                                   flex: 1,
-                                  child: ElevatedButton(
+                                  child: IconButton(
                                     onPressed: (){},                                                                    
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
@@ -168,7 +193,7 @@ class P extends State<Profile> {
                                       backgroundColor: Colors.grey.shade300,
                                       foregroundColor: Colors.black
                                     ),
-                                    child: const Icon(Icons.more_horiz),
+                                    icon: Icon(Icons.more_horiz, size: h*0.025)
                                   )
                                 ),
                               ]
@@ -183,7 +208,7 @@ class P extends State<Profile> {
                               users.storeUsers[users.loggedInUser]![0],
                               style: GoogleFonts.getFont(
                                 'Roboto',
-                                fontSize: 26,
+                                fontSize: h*0.03,
                                 fontWeight: FontWeight.w700
                               )
                             )
@@ -201,13 +226,13 @@ class P extends State<Profile> {
                               )
                             ),
                             child: CircleAvatar(
-                              radius: w*0.21, 
+                              radius: w*0.2, 
                               backgroundImage: const AssetImage('assets/FB_IMG_1691828515571.png')                           
                             ),
                           )
                         ),
                         Positioned( 
-                          bottom: 158, left: w*0.33,
+                          bottom: h*0.17, left: w*0.33,
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -217,17 +242,17 @@ class P extends State<Profile> {
                               )
                             ),
                             child: CircleAvatar(
-                              radius: 21,
+                              radius: 18,
                               backgroundColor:  Colors.grey.shade300,
                               child: IconButton(
                                 onPressed: (){},
-                                icon: const Icon(Icons.camera_alt_rounded)
+                                icon: Icon(Icons.camera_alt_rounded, size: h*0.025,)
                               )
                             ),
                           )
                         ),
                         Positioned( 
-                          bottom: 210, right: w*0.035,
+                          bottom: h*0.235, right: w*0.035,
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -237,40 +262,17 @@ class P extends State<Profile> {
                               )
                             ),
                             child: CircleAvatar(
-                              radius: 21,
+                              radius: 18,
                               backgroundColor:  Colors.grey.shade300,
                               child: IconButton(
                                 onPressed: (){},
-                                icon: const Icon(Icons.camera_alt_rounded)
+                                icon: Icon(Icons.camera_alt_rounded, size: h*0.025,)
                               )
                             ),
                           )
                         ),
                         Positioned(
-                          bottom: 270, right: w*0.035,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 2,
-                              )
-                            ),
-                            child: CircleAvatar(
-                              radius: 21,
-                              backgroundColor:const Color.fromARGB(255, 44, 77, 241),
-                              child: IconButton(
-                                onPressed: (){},
-                                icon: const Icon(
-                                  Icons.face_4_outlined,
-                                  color: Colors.white
-                                )
-                              )
-                            ),
-                          )
-                        ),
-                        Positioned(
-                          top: 40, left: w*0.25,
+                          top: h*0.04, left: w*0.25,
                           child: TextButton.icon(
                             onPressed: (){},
                             icon: const Icon(Icons.add_photo_alternate_sharp),
@@ -278,7 +280,7 @@ class P extends State<Profile> {
                               'Add cover photo',
                               style: GoogleFonts.getFont(
                                 'Roboto',
-                                fontSize:18,
+                                fontSize:16,
                                 fontWeight: FontWeight.w600,                                      
                               )
                             ),
@@ -297,8 +299,9 @@ class P extends State<Profile> {
                     color: Colors.white,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(13, 13, 0, 4),
+                        Container(
+                          height: h*0.065,
+                          padding: const EdgeInsets.fromLTRB(13, 8, 0, 2),
                           child: Row(
                             children: [
                               TextButton(                                   
@@ -310,13 +313,13 @@ class P extends State<Profile> {
                                 }, 
                                 style: hasFocus1? const ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 207, 223, 237))
-                                ): null,                             
+                                ): null,
                                 child: Text(
                                   'Posts',
                                   style: GoogleFonts.getFont(
                                     'Roboto',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
                                     color: hasFocus1? const Color.fromARGB(255, 44, 77, 241): Colors.black87,                                  
                                   )
                                 )
@@ -336,8 +339,7 @@ class P extends State<Profile> {
                                   'Reels',
                                   style: GoogleFonts.getFont(
                                     'Roboto',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15, fontWeight: FontWeight.w500,
                                     color: hasFocus2? const Color.fromARGB(255, 44, 77, 241): Colors.black87,                                  
                                   )
                                 )
@@ -345,10 +347,7 @@ class P extends State<Profile> {
                             ],
                           ),
                         ),
-                        const Divider(
-                          color: Colors.black,
-                          thickness: 0.3,                        
-                        ),
+                        const Divider(color: Colors.black, thickness: 0.1),
                         Padding(                        
                           padding: const EdgeInsets.only(left: 13),
                           child: Align(
@@ -356,29 +355,23 @@ class P extends State<Profile> {
                             child: Text(
                               'Details',
                               style: GoogleFonts.getFont(
-                                'Roboto',
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold
+                                'Roboto', fontSize: 20, fontWeight: FontWeight.bold
                               )
                             ),
                           ),
                         ),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:13, top: 15),
+                            padding: const EdgeInsets.only(left:13, top: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.home,
-                                  size: 30
-                                ),
-                                SizedBox(width: 10),
+                                const Icon(Icons.home, size: 30, color: Colors.black54),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Current city',
                                   style: GoogleFonts.getFont(
-                                    'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
+                                    'Roboto', fontSize: 17,
+                                    fontWeight: FontWeight.w400, color: Colors.black45
                                   )
                                 )
                               ],
@@ -387,20 +380,16 @@ class P extends State<Profile> {
                         ),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:13, top: 15),
+                            padding: const EdgeInsets.only(left:13, top: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.work_history_sharp,
-                                  size: 30
-                                ),
-                                SizedBox(width: 10),
+                                const Icon(Icons.work_history_sharp, size: 30, color: Colors.black54),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Workplace',
                                   style: GoogleFonts.getFont(
-                                    'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
+                                    'Roboto', fontSize: 17, 
+                                    fontWeight: FontWeight.w400, color: Colors.black45
                                   )
                                 )
                               ],
@@ -409,21 +398,16 @@ class P extends State<Profile> {
                         ),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:13, top: 15),
+                            padding: const EdgeInsets.only(left:13, top: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.school_sharp,
-                                  size: 30
-                                ),
-                                SizedBox(width: 10),
+                                const Icon(Icons.school_sharp, size: 30, color: Colors.black54),
+                                const SizedBox(width: 10),
                                 Text(
                                   'School',
                                   style: GoogleFonts.getFont(
-                                    'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  )
+                                    'Roboto', fontSize: 17, 
+                                    fontWeight: FontWeight.w400, color: Colors.black45)
                                 )
                               ],
                             )
@@ -431,20 +415,16 @@ class P extends State<Profile> {
                         ),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:13, top: 15),
+                            padding: const EdgeInsets.only(left:13, top: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.place,
-                                  size: 30
-                                ),
-                                SizedBox(width: 10),
+                                const Icon(Icons.place, size: 30, color: Colors.black54),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Hometown',
                                   style: GoogleFonts.getFont(
-                                    'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
+                                    'Roboto', fontSize: 17,
+                                    fontWeight: FontWeight.w400, color: Colors.black45
                                   )
                                 )
                               ],
@@ -453,20 +433,16 @@ class P extends State<Profile> {
                         ),
                         GestureDetector(                        
                           child: Padding(
-                            padding: const EdgeInsets.only(left:13, top: 15),
+                            padding: const EdgeInsets.only(left:13, top: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.favorite_sharp,
-                                  size: 30
-                                ),
-                                SizedBox(width: 10),
+                                const Icon(Icons.favorite_sharp, size: 30, color: Colors.black54),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Relationship status',
                                   style: GoogleFonts.getFont(
-                                    'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
+                                    'Roboto', fontSize: 17,
+                                    fontWeight: FontWeight.w400, color: Colors.black54
                                   )
                                 )
                               ],
@@ -475,20 +451,16 @@ class P extends State<Profile> {
                         ),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:13, top: 15),
+                            padding: const EdgeInsets.only(left:13, top: 10),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.more_horiz_sharp,
-                                  size: 30
-                                ),
-                                SizedBox(width: 10),
+                                const Icon(Icons.more_horiz_sharp, size: 30, color: Colors.black87),
+                                const SizedBox(width: 10),
                                 Text(
                                   'See your About info',
                                   style: GoogleFonts.getFont(
-                                    'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
+                                    'Roboto', fontSize: 17,
+                                    fontWeight: FontWeight.w400, color: Colors.black87
                                   )
                                 )
                               ],
@@ -496,23 +468,22 @@ class P extends State<Profile> {
                           ),
                         ),
                         Container(
-                          width: w,
-                          padding: EdgeInsets.fromLTRB(15, 18, 15, 18),                        
+                          width: w, height: h*0.09,
+                          padding: const EdgeInsets.fromLTRB(15, 18, 15, 18),                        
                           child: ElevatedButton(
                             onPressed: (){},
                             style: ElevatedButton.styleFrom(
+                              elevation: 0.1,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)
                               ),
-                              backgroundColor: Color.fromARGB(255, 207, 223, 237),
-                              foregroundColor: const Color.fromARGB(255, 44, 77, 241)
+                              backgroundColor: Colors.blue.shade50,
+                              //foregroundColor: const Color.fromARGB(255, 44, 77, 241)
                             ),
                             child: Text(
                               'Edit public details',
                               style: GoogleFonts.getFont(
-                                'Roboto',
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500
+                                'Roboto', fontSize: 15, fontWeight: FontWeight.w500, color: Colors.blue.shade800
                               )
                             )
                           ),
@@ -521,47 +492,52 @@ class P extends State<Profile> {
                           padding: const EdgeInsets.fromLTRB(15, 0, 10, 15),
                           child: Row(
                             children: [                            
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Friends', 
-                                    style: GoogleFonts.getFont(
-                                      'Roboto',
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold
-                                    ),
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Friends', 
+                                        style: GoogleFonts.getFont(
+                                          'Roboto', fontSize: 20, fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                      Text(
+                                        '53 friends',
+                                        style: GoogleFonts.getFont(
+                                          'Roboto', fontSize: 17,
+                                        fontWeight: FontWeight.w400, color: Colors.black54
+                                        )
+                                      )
+                                    ]
                                   ),
-                                  Text(
-                                    '53 friends',
-                                    style: GoogleFonts.getFont(
-                                      'Roboto',
-                                      fontSize: 20
-                                    )
-                                  )
-                                ]
+                                ),
                               ),
                               SizedBox(width: w*0.46),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    'Find',
-                                    style: GoogleFonts.getFont(
-                                      'Roboto',
-                                      fontSize: 20,
-                                      color: const Color.fromARGB(255, 44, 77, 241)
-                                    )
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Find',
+                                        style: GoogleFonts.getFont(
+                                          'Roboto', fontSize: 17, color: Colors.blue.shade800
+                                        )
+                                      ),
+                                      Text(
+                                        'Friends',
+                                        style: GoogleFonts.getFont(
+                                          'Roboto',
+                                          fontSize: 17, color: Colors.blue.shade800
+                                        )
+                                      )
+                                    ]
                                   ),
-                                  Text(
-                                    'Friends',
-                                    style: GoogleFonts.getFont(
-                                      'Roboto',
-                                      fontSize: 20,
-                                      color: const Color.fromARGB(255, 44, 77, 241)
-                                    )
-                                  )
-                                ]
+                                ),
                               )
                             ]                          
                           ),
@@ -570,59 +546,15 @@ class P extends State<Profile> {
                           margin: const EdgeInsets.fromLTRB(10, 5, 10, 10),
                           //color:Colors.yellow,
                           height: w*0.8, width: w*1.5,
-                          child: GridView(
+                          child: GridView.builder(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                               childAspectRatio: w*0.8/w*0.9
                             ),
-                            children: [
-                              Column(
-                                children: [
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),                                    
-                                    ),                                                       
-                                    child: Image.asset('assets/FB_IMG_1691828515571.png')
-                                  ),
-                                  Text(users.storeUsers[users.loggedInUser]![0],)
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Card(                                
-                                    child: Image.asset('assets/FB_IMG_1691828515571.png')
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Card(                                
-                                    child: Image.asset('assets/FB_IMG_1691828515571.png')
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Card(                                
-                                    child: Image.asset('assets/FB_IMG_1691828515571.png')
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Card(                                
-                                    child: Image.asset('assets/FB_IMG_1691828515571.png')
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Card(                                
-                                    child: Image.asset('assets/FB_IMG_1691828515571.png')
-                                  ),
-                                ],
-                              ),
-                            ]
+                            itemCount: names.length,
+                            itemBuilder: (context, index){
+                              return pictureName(urls[index], names[index]);
+                            }
                           ),
                         ),
                         Container(

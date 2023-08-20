@@ -27,10 +27,8 @@ class _LoginPage extends State<LoginPage> {
           content: const Text('Wrong Username or Password'),
           actions: [
             ElevatedButton(
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-              child: Text('Ok')
+              onPressed: (){Navigator.of(context).pop();},
+              child: const Text('Ok')
             )
           ]
         )
@@ -48,7 +46,7 @@ class _LoginPage extends State<LoginPage> {
       => Scaffold(      
         body: SingleChildScrollView(
           child: Container(
-            color: const Color.fromARGB(255, 5, 28, 50),
+            color: isRegistered? const Color.fromARGB(255, 5, 28, 50): const Color.fromARGB(255, 30, 29, 30),
             child: Column(
               children: [
                 SizedBox(
@@ -59,6 +57,8 @@ class _LoginPage extends State<LoginPage> {
                     IconButton(
                       onPressed: (){
                         if (!isRegistered){setState(() => isRegistered = !isRegistered);}
+                        _controller2.clear();
+                        _controller3.clear();
                       },
                       icon: const Icon(Icons.arrow_back_outlined),
                       color: Colors.white,
@@ -379,14 +379,12 @@ class _LoginPage extends State<LoginPage> {
                       color: Colors.white,
                       fontSize: h*0.02,
                       fontWeight: FontWeight.bold
-                    )
-                      ),
+                      )
+                    ),
                     onPressed: (){}                            
                   ) : SizedBox(height: h*0.05),
                 ),
-                isRegistered? SizedBox(
-                  height: h*0.09
-                ): const SizedBox(),
+                isRegistered? SizedBox(height: h*0.09): const SizedBox(),
                 isRegistered? ElevatedButton(    
                   style: ButtonStyle(
                     fixedSize: MaterialStatePropertyAll(Size(w*0.9, h*0.06)),
@@ -405,6 +403,8 @@ class _LoginPage extends State<LoginPage> {
                   ),
                   onPressed: (){
                     setState(() => isRegistered = !isRegistered);
+                    _controller2.clear();
+                    _controller3.clear();
                   },
                   child: Text(
                     'Create new account',
