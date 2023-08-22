@@ -270,8 +270,7 @@ class _LoginPage extends State<LoginPage> {
                   ),
                 ), 
                 SizedBox(                            
-                  height: h*0.06,
-                  width: w*0.9,
+                  height: h*0.06, width: w*0.9,
                   child: ElevatedButton(    
                     style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 46, 108, 224),),
@@ -300,10 +299,7 @@ class _LoginPage extends State<LoginPage> {
                             ),
                             content: Text(
                               'Invalid Username or Password',
-                              style: GoogleFonts.getFont(
-                                'Quicksand',
-                                fontWeight: FontWeight.w700,                                
-                              )
+                              style: GoogleFonts.getFont('Quicksand', fontWeight: FontWeight.w700,)
                             ),
                             duration: const Duration(seconds:5),
                             shape: const RoundedRectangleBorder(
@@ -381,7 +377,7 @@ class _LoginPage extends State<LoginPage> {
                       fontWeight: FontWeight.bold
                       )
                     ),
-                    onPressed: (){}                            
+                    onPressed: (){ Navigator.of(context).pushNamed('/forgot_password');}                            
                   ) : SizedBox(height: h*0.05),
                 ),
                 isRegistered? SizedBox(height: h*0.09): const SizedBox(),

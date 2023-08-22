@@ -60,16 +60,14 @@ class P extends State<Profile> {
       builder: ((context, users, child)
       => Scaffold(
         appBar: AppBar(
-          elevation: 5,
-          backgroundColor: Colors.white,
+          elevation: 5, backgroundColor: Colors.white,
           flexibleSpace: Column(
             children: [
-              SizedBox(height: h*0.05),
+              SizedBox(height: h*0.046),
               Row(              
                 children: [ 
                   const Expanded(
-                    flex: 1,          
-                    child: SizedBox()
+                    flex: 1, child: SizedBox()
                   ),
                   Expanded(                    
                     flex: 5,
@@ -95,10 +93,7 @@ class P extends State<Profile> {
                           Text(
                             users.storeUsers[users.loggedInUser]![0],
                             style: GoogleFonts.getFont(
-                              'Inter',
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600
+                              'Inter', color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600
                             ),
                             overflow: TextOverflow.ellipsis,                              
                           ),

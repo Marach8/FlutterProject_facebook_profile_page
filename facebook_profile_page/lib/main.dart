@@ -1,3 +1,4 @@
+import 'package:facebook_profile_page/forgot_password.dart';
 import 'package:facebook_profile_page/login_page.dart';
 import 'package:facebook_profile_page/profile_page.dart';
 import 'package:facebook_profile_page/users.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget{
         initialRoute: '/',
         routes: {
           '/': (context) => const LoginPage(),
-          '/profile': (context) => const Profile()
+          '/profile': (context) => const Profile(),
+          '/forgot_password': (context) => const ForgotPassword(),
         }
       ),
     );
