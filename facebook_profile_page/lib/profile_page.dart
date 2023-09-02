@@ -1,6 +1,7 @@
 import 'package:facebook_profile_page/users.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget{
@@ -19,13 +20,8 @@ class P extends State<Profile> {
                               'assets/katie.png', 'assets/mo.png'];
   final List<String> names = ['Ajah Emmanuel', 'Chukwu Desmond', 'Michael Duke', 'Monic Ruth',
                               'Uchenna Anayo', 'Mark Donaldson'];  
-  
-  @override 
-  Widget build (BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width; 
 
-    Widget pictureName (String url, String name) {
+  Widget pictureName (String url, String name) {
     return Card(
       elevation: 0, color: Colors.white,
       shape: RoundedRectangleBorder(
@@ -56,6 +52,18 @@ class P extends State<Profile> {
     );
   }   
 
+  String formatDate(String dateString){
+    DateTime date = DateFormat('dd/MM/yy').parse(dateString);
+    String formattedDate = DateFormat.yMMMMEEEEd().format(date);
+    return formattedDate;
+  }
+
+  
+  @override 
+  Widget build (BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    
     return Consumer<Users>(
       builder: ((context, users, child)
       => Scaffold(
@@ -941,7 +949,7 @@ class P extends State<Profile> {
                                     Row(
                                       children: [
                                         Text(
-                                          'May 22, 1999',
+                                          users.storeUsers[users.loggedInUser]![2],
                                           style: GoogleFonts.getFont(
                                             'Roboto', fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black54
                                           )
@@ -974,7 +982,7 @@ class P extends State<Profile> {
                         const SizedBox(height: 10),
                         Center(
                           child: Text(
-                            'Born on March 15, 2001',
+                            formatDate(users.storeUsers[users.loggedInUser]![2]),
                             style: GoogleFonts.getFont(
                               'Roboto', fontSize: 20, fontWeight: FontWeight.w600
                             )

@@ -43,12 +43,10 @@ class _ForgotPassword extends State<ForgotPassword> {
       => Scaffold(      
         body: SingleChildScrollView(
           child: Container(
-            color:  Color.fromARGB(255, 49, 49, 48),
+            color: Colors.blueGrey.shade900,
             child: Column(
               children: [
-                SizedBox(
-                  height:h*0.04
-                ),
+                SizedBox(height:h*0.04),
                 Row(
                   children: [
                     IconButton(
@@ -81,9 +79,9 @@ class _ForgotPassword extends State<ForgotPassword> {
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   height: h*0.072,                  
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 22, 37, 52),
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 1)]
+                    boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 5)]
                   ),
                   child: TextField(
                     controller: _controller1,
@@ -101,11 +99,9 @@ class _ForgotPassword extends State<ForgotPassword> {
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   height: h*0.072,                  
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 22, 37, 52),
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(color: Colors.white, blurRadius: 1)
-                    ]
+                    boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 5)]
                   ),
                   child: TextField(
                     controller: _controller2,
@@ -124,8 +120,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                 ), 
                 SizedBox(height: MediaQuery.of(context).size.height*0.02),                
                 SizedBox(                            
-                  height: h*0.06,
-                  width: w*0.9,
+                  height: h*0.06, width: w*0.9,
                   child: ElevatedButton(    
                     style: ButtonStyle(
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 46, 108, 224),),
@@ -133,20 +128,34 @@ class _ForgotPassword extends State<ForgotPassword> {
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)
                         )
-                      )
+                      ), 
+                      side:const MaterialStatePropertyAll(BorderSide(
+                        color: Colors.black, width:1, strokeAlign: 5
+                      ))
                     ),
                     onPressed: (){
                       if(fieldsNotEmpty){
                         if (users.storeUsers.containsKey(_controller1.text)){
                           users.storeUsers[_controller1.text]![1] = _controller2.text;
                           Navigator.pop(context);
-                        }                                           
+                        } else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Fields cannot be empty!!!',
+                                style: GoogleFonts.getFont(
+                                  'Quicksand', color: Colors.black, fontSize: h*0.02, fontWeight: FontWeight.bold,
+                                )
+                              )
+                            )
+                          );
+                        }                                         
                       }
                     },                      
                     child: Text(
                       'Change Password',
                       style: GoogleFonts.getFont(
-                        'Quicksand', color: Colors.white, fontSize: h*0.02, fontWeight: FontWeight.bold,
+                        'Quicksand', color: Colors.black, fontSize: h*0.02, fontWeight: FontWeight.bold,
                       )
                     )
                   ),

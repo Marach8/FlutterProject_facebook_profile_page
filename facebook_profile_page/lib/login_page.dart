@@ -18,22 +18,22 @@ class _LoginPage extends State<LoginPage> {
   final TextEditingController _controller4 = TextEditingController();   
   bool isRegistered = true;
 
-  Future <void> dialogBox() async{
-    return showDialog(
-      context: context,
-      builder: (context) => 
-        AlertDialog(
-          title: const Text('Error!'),
-          content: const Text('Wrong Username or Password'),
-          actions: [
-            ElevatedButton(
-              onPressed: (){Navigator.of(context).pop();},
-              child: const Text('Ok')
-            )
-          ]
-        )
-    );
-  }
+  // Future <void> dialogBox() async{
+  //   return showDialog(
+  //     context: context,
+  //     builder: (context) => 
+  //       AlertDialog(
+  //         title: const Text('Error!'),
+  //         content: const Text('Wrong Username or Password'),
+  //         actions: [
+  //           ElevatedButton(
+  //             onPressed: (){Navigator.of(context).pop();},
+  //             child: const Text('Ok')
+  //           )
+  //         ]
+  //       )
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context){    
@@ -46,7 +46,7 @@ class _LoginPage extends State<LoginPage> {
       => Scaffold(      
         body: SingleChildScrollView(
           child: Container(
-            color: isRegistered? const Color.fromARGB(255, 5, 28, 50): const Color.fromARGB(255, 30, 29, 30),
+            color: isRegistered? const Color.fromARGB(255, 5, 28, 50): Colors.blueGrey.shade900,//const Color.fromARGB(255, 30, 29, 30),
             child: Column(
               children: [
                 SizedBox(
@@ -264,7 +264,7 @@ class _LoginPage extends State<LoginPage> {
                         fontSize: h*0.02,
                         fontWeight: FontWeight.bold,
                       ),
-                      hintText: 'Date of Birth',
+                      hintText: 'Date of Birth (dd/mm/yy)',
                       border: InputBorder.none,                                                     
                     )
                   ),
