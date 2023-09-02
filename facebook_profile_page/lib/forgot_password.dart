@@ -15,28 +15,40 @@ class _ForgotPassword extends State<ForgotPassword> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController(); 
 
-  Future <void> dialogBox() async{
+  Future <void> dialogBox() {
     return showDialog(
       context: context,
       builder: (context) => 
-        AlertDialog(
-          title: const Text('Error!'),
-          content: const Text('Wrong Username or Password'),
-          actions: [
-            ElevatedButton(
-              onPressed: (){Navigator.of(context).pop();},
-              child: const Text('Ok')
-            )
-          ]
+       AlertDialog(
+          title: Text('Please wait...', style: GoogleFonts.getFont('Quicksand', fontSize: 10, fontWeight: FontWeight.bold,),
+          ),
+          content: const LinearProgressIndicator(),
         )
-    );
+    ); 
   }
+
 
   @override
   Widget build(BuildContext context){    
     var h = MediaQuery.of(context).size.height;    
     var w = MediaQuery.of(context).size.width;
     bool fieldsNotEmpty = [_controller1, _controller2,].every((controller) => controller.text.isNotEmpty); 
+
+  snackBarAlert(String text, Color color) => 
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        text,
+        style: GoogleFonts.getFont(
+          'Quicksand', color: color, fontSize: h*0.02, fontWeight: FontWeight.bold,
+        ),                                
+      ),
+      action: SnackBarAction(label: 'Ok', onPressed: (){}),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      //behavior: SnackBarBehavior.floating, margin: const EdgeInsets.only(bottom:50),
+      backgroundColor: Colors.white, duration: const Duration(seconds:3)
+    )
+  );
     
     return Consumer<Users>(
       builder: ((context, users, child)
@@ -50,7 +62,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: (){Navigator.pop(context);},
+                      onPressed: (){Navigator.pop(context);}, 
                       icon: const Icon(Icons.arrow_back_outlined),
                       color: Colors.white,
                     )
@@ -75,50 +87,65 @@ class _ForgotPassword extends State<ForgotPassword> {
                 ), 
                 SizedBox(height: h*0.075),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 15),
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  height: h*0.072,                  
+                  height: h*0.25, width: w*0.9,                 
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: Colors. blueGrey.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 5)]
+                    boxShadow: const [BoxShadow(blurRadius: 10, spreadRadius: 1)]
                   ),
-                  child: TextField(
-                    controller: _controller1,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(              
-                      hintStyle: GoogleFonts.getFont('Quicksand', color:Colors.white38, fontSize: h*0.02, fontWeight: FontWeight.bold),
-                      hintText: 'Enter Mobile number or email',
-                      border: InputBorder.none,                                                     
-                    )
-                  ),
-                ), 
-                SizedBox(height: h*0.004),
-                Container(    
-                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  height: h*0.072,                  
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 5)]
-                  ),
-                  child: TextField(
-                    controller: _controller2,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(              
-                      hintStyle: GoogleFonts.getFont(
-                        'Quicksand',
-                        color: Colors.white38,
-                        fontSize: h*0.02,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      hintText: 'Enter new password',
-                      border: InputBorder.none,                                                     
-                    )
-                  ),
-                ), 
-                SizedBox(height: MediaQuery.of(context).size.height*0.02),                
+                  child: Column(
+                    children: [
+                      SizedBox(height: h*0.03),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        height: h*0.072,                  
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 5)]
+                        ),
+                        child: TextField(
+                          controller: _controller1,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(              
+                            hintStyle: GoogleFonts.getFont('Quicksand', color:Colors.white38, fontSize: h*0.02, fontWeight: FontWeight.bold),
+                            hintText: 'Enter Mobile number or email',
+                            border: InputBorder.none,                                                     
+                          )
+                        ),
+                      ), 
+                      SizedBox(height: h*0.004),
+                      SizedBox(height: h*0.004),
+                      Container(    
+                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        height: h*0.072,                  
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [BoxShadow(color: Colors.white, blurRadius: 5)]
+                        ),
+                        child: TextField(
+                          controller: _controller2,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(              
+                            hintStyle: GoogleFonts.getFont(
+                              'Quicksand',
+                              color: Colors.white38,
+                              fontSize: h*0.02,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            hintText: 'Enter new password',
+                            border: InputBorder.none,                                                     
+                          )
+                        ),
+                      ), 
+                    ]
+                  )
+                ),
+
+                SizedBox(height: h*0.02),                
                 SizedBox(                            
                   height: h*0.06, width: w*0.9,
                   child: ElevatedButton(    
@@ -133,23 +160,17 @@ class _ForgotPassword extends State<ForgotPassword> {
                         color: Colors.black, width:1, strokeAlign: 5
                       ))
                     ),
-                    onPressed: (){
+                    onPressed: () async{
                       if(fieldsNotEmpty){
                         if (users.storeUsers.containsKey(_controller1.text)){
                           users.storeUsers[_controller1.text]![1] = _controller2.text;
-                          Navigator.pop(context);
+                          dialogBox();
+                          await Future.delayed(const Duration(seconds:2), () => Navigator.of(context).popUntil(ModalRoute.withName('/')));
                         } else{
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Fields cannot be empty!!!',
-                                style: GoogleFonts.getFont(
-                                  'Quicksand', color: Colors.black, fontSize: h*0.02, fontWeight: FontWeight.bold,
-                                )
-                              )
-                            )
-                          );
+                          snackBarAlert('User "${_controller1.text}" not found!!!', Colors.red);
                         }                                         
+                      } else{
+                        snackBarAlert('Fields cannot be empty!!!', Colors.black);
                       }
                     },                      
                     child: Text(
@@ -160,7 +181,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                     )
                   ),
                 ),
-                SizedBox(height: h*0.3), 
+                SizedBox(height: h*0.25), 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [                    
@@ -177,7 +198,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                   ]
                 ),
                 SizedBox(                  
-                  height: h*0.05, width: w
+                  height: h*0.1, width: w
                 )
               ]
             ),
